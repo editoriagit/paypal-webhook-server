@@ -1,4 +1,4 @@
-
+const credentials = require('./editoria-ai-subscribers-dcdea11ef7dd.json');
 const express = require('express');
 const bodyParser = require('body-parser');
 

@@ -1,0 +1,9 @@
+# Ignore JSON key file for Google Sheets
+editoria-ai-subscribers-dcdea11ef7dd.json
+
+# Node modules (if they are not already ignored in your project)
+node_modules/
+
+# Environment files (optional, if you have them)
+.env
+

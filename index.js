@@ -21,7 +21,7 @@ const auth = new google.auth.GoogleAuth({
 async function saveSubscriber(email, firstName, lastName, subscriptionId) {
     try {
         const authClient = await auth.getClient();
-        const spreadsheetId = '<1mlUHCWhawGYfx44QgYKN2Frw9ReT_MNbfrfKpF1JBHY>'; // Replace with your Google Sheets ID
+        const spreadsheetId = '1mlUHCWhawGYfx44QgYKN2Frw9ReT_MNbfrfKpF1JBHY'; // Replace with your Google Sheets ID
         const range = 'Sheet1!A:E'; // Adjust the range based on your sheet structure
 
         // Append email, first name, last name, subscription ID, and timestamp

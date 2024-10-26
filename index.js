@@ -1,7 +1,15 @@
-const credentials = require('./editoria-ai-subscribers-dcdea11ef7dd.json');
-console.log(credentials); // This will print the contents of the JSON file to the terminal
 const express = require('express');
 const bodyParser = require('body-parser');
+const { google } = require('googleapis');
+const sheets = google.sheets('v4');
+// Authentication setup for Google Sheets using environment variables
+const auth = new google.auth.GoogleAuth({
+    credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') // Correctly formats newlines
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
+});
 
 const app = express();
 app.use(bodyParser.json()); // Parse JSON data from PayPal

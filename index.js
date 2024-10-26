@@ -43,7 +43,7 @@ async function saveSubscriber(email, firstName, lastName, subscriptionId) {
 }
 
 // Webhook endpoint to receive PayPal events
-app.post('/paypal-webhook', (req, res) => {
+/*app.post('/paypal-webhook', (req, res) => {
     const event = req.body;
 
     console.log("Received PayPal webhook event:", event);
@@ -64,6 +64,13 @@ app.post('/paypal-webhook', (req, res) => {
     // Respond to confirm receipt of the event
     res.status(200).send("Webhook received and processed.");
 });
+*/
+
+app.post('/paypal-webhook', (req, res) => {
+    console.log("Webhook endpoint received a request");
+    res.status(200).send("Webhook received successfully");
+});
+
 
 // Start the server
 app.listen(PORT, () => {

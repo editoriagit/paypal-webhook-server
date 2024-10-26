@@ -1,4 +1,5 @@
 const credentials = require('./editoria-ai-subscribers-dcdea11ef7dd.json');
+console.log(credentials); // This will print the contents of the JSON file to the terminal
 const express = require('express');
 const bodyParser = require('body-parser');
 

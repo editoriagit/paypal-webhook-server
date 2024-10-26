@@ -20,15 +20,30 @@ const auth = new google.auth.GoogleAuth({
 // Function to save subscriber details to Google Sheets
 async function saveSubscriber(email, firstName, lastName, subscriptionId) {
     try {
+        console.log("Starting saveSubscriber function");
+
         const authClient = await auth.getClient();
         const spreadsheetId = '1mlUHCWhawGYfx44QgYKN2Frw9ReT_MNbfrfKpF1JBHY'; // Replace with your Google Sheets ID
         const range = 'Sheet1!A:E'; // Adjust the range based on your sheet structure
 
-        // Append email, first name, last name, subscription ID, and timestamp
-        const values = [[email, firstName, lastName, subscriptionId, new Date().toISOString()]];
+        // Format the timestamp to a more readable format
+        const formattedTimestamp = new Date().toLocaleString('en-GB', {
+            timeZone: 'UTC',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+
+        // Log the data being sent to Google Sheets
+        console.log(`Saving to Google Sheets: ${email}, ${firstName}, ${lastName}, ${subscriptionId}, ${formattedTimestamp}`);
+
+        const values = [[email, firstName, lastName, subscriptionId, formattedTimestamp]];
         const resource = { values };
 
-        await sheets.spreadsheets.values.append({
+        const response = await sheets.spreadsheets.values.append({
             auth: authClient,
             spreadsheetId,
             range,
@@ -36,7 +51,8 @@ async function saveSubscriber(email, firstName, lastName, subscriptionId) {
             resource,
         });
 
-        console.log(`Saved subscriber to Google Sheets: ${email}`);
+        console.log("Google Sheets API Response:", response.data);
+        console.log("Finished saveSubscriber function");
     } catch (err) {
         console.error("Error saving to Google Sheets:", err);
     }
@@ -67,8 +83,6 @@ app.post('/paypal-webhook', (req, res) => {
 
     res.status(200).send("Webhook received and processed.");
 });
-
-
 
 // Start the server
 app.listen(PORT, () => {

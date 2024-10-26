@@ -42,13 +42,17 @@ async function saveSubscriber(email, firstName, lastName, subscriptionId) {
     }
 }
 
-// Webhook endpoint to receive PayPal events
-/*app.post('/paypal-webhook', (req, res) => {
+// Root route for server status check
+app.get('/', (req, res) => {
+    res.send("The PayPal webhook server is running!");
+});
+
+// Full webhook route for PayPal
+app.post('/paypal-webhook', (req, res) => {
     const event = req.body;
 
     console.log("Received PayPal webhook event:", event);
 
-    // Check for subscription activation events
     if (event.event_type === 'BILLING.SUBSCRIPTION.ACTIVATED') {
         const subscriptionId = event.resource.id;
         const email = event.resource.subscriber.email_address;
@@ -61,15 +65,9 @@ async function saveSubscriber(email, firstName, lastName, subscriptionId) {
         saveSubscriber(email, firstName, lastName, subscriptionId);
     }
 
-    // Respond to confirm receipt of the event
     res.status(200).send("Webhook received and processed.");
 });
-*/
 
-app.post('/paypal-webhook', (req, res) => {
-    console.log("Webhook endpoint received a request");
-    res.status(200).send("Webhook received successfully");
-});
 
 
 // Start the server
